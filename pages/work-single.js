@@ -2,7 +2,7 @@ import Layout from "../src/layout/Layout";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 const WorkSingleIsotope = dynamic(
   () => import("../src/components/WorkSingleIsotope"),
@@ -12,30 +12,12 @@ const WorkSingleIsotope = dynamic(
 );
 
 const WorkSingle = () => {
-  const url='https://portfolio-backend-30mp.onrender.com/api/v1/get/user/65b3a22c01d900e96c4219ae'
-  const [data, setData] = useState([])
-  const fetchInfo = () => { 
-    return fetch(url) 
-            .then((res) => res.json()) 
-            .then((d) => setData(d.user.projects)) 
-    }
-    
-    useEffect(() => {
-      fetchInfo();
-     
-    }, [])
   const [videoToggle, setVideoToggle] = useState(false);
   return (
     <Layout extraWrapClass={"project-single"}>
-      
-      
       {/* Section Started Heading */}
-      
-      {data.map(({title})=>
       <section className="section section-inner started-heading">
-      
         <div className="container">
-       
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {/* titles */}
@@ -43,13 +25,12 @@ const WorkSingle = () => {
                 <h1
                   className="h-title"
                 >
-                  {title}
+                  Mozar
                 </h1>
               </div>
             </div>
           </div>
         </div>
-       
       </section>
       {/* Details */}
       <section className="section section-inner details">
@@ -196,9 +177,7 @@ const WorkSingle = () => {
           </div>
         </div>
       </section>
-      </div>
     </Layout>
-  
   );
 };
 export default WorkSingle;
