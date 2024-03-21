@@ -5,6 +5,7 @@ import TestimonialSlider from "../src/components/TestimonialSlider";
 import Layout from "../src/layout/Layout";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { SwiperSlide } from "swiper/react";
 
 const ProjectIsotop = dynamic(() => import("../src/components/ProjectIsotop"), {
   ssr: false,
@@ -18,8 +19,8 @@ const Index = () => {
   const [social, setsocial] = useState([]);
   const [timeline, settimeline] = useState([]);
   const [experience, setexperience] = useState([]);
-  const fetchInfo = () => {
-    return fetch(url)
+  async function  fetchInfo(){
+    return await fetch(url)
       .then((res) => res.json())
       .then((d) => setData(d.user.about));
   };
@@ -77,9 +78,9 @@ const Index = () => {
 
           <div className="hero-started">
             <div className="slide">
-              {data.avatar?<img src={data.avatar.url} width={400} alt={data.avatar.public_id} />:""}
+            {data.avatar?<img src={data.avatar.url} width={400} alt={data.avatar.public_id} />:""}
               
-              {/* <span className="circle circle-1">
+               <span className="circle circle-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -148,7 +149,7 @@ const Index = () => {
                     d="M232.000,0.000 C232.000,64.151 180.376,116.580 116.238,116.580 C52.100,116.580 0.000,64.151 0.000,0.000 "
                   />
                 </svg>
-              </span> */}
+              </span> 
             </div>
 
             <div className="content">
@@ -214,13 +215,17 @@ const Index = () => {
           {/* Section Heading */}
           <div className="m-titles">
             <h2 className="m-title">About Me</h2>
+            
           </div>
           <div className="row row-custom">
             <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-right">
               {/* Section numbers */}
               <div className="numbers-items">
+              {data.avatar?<img src={data.avatar.url}  width={120} style={{borderRadius:"15rem"}}/>:''}
                 <div className="numbers-item">
+               
                   <div className="icon">
+                  
                     <i aria-hidden="true" className="far fa-check-circle" />
                   </div>
                   <div className="num">{data.some_total}</div>
@@ -296,11 +301,11 @@ const Index = () => {
                 <p>{data.description}</p>
               </div>
               {/* Skills */}
-              <div className="skills-items">
+              <div className="skills-items" >
                 <div className="p-title">SKILLS</div>
                 {skills.sort((a, b) => a.sequence - b.sequence) &&
                   skills.map((skill) => (
-                    <div className="skills-item">
+                    <div className="skills-item"style={{border:"2px solid #ff8059",borderRadius:"40px",padding:"20px"}}>
                       {/* ProgressBar */}
                       <div className="name">
                         <div style={mainDiv}>
@@ -427,17 +432,21 @@ const Index = () => {
                 </div> */}
               </div>
               {/* Services */}
+              
               <div className="p-title">SERVICES</div>
-              <div className="services-items">
-                <div className="col-lg-6 mb-4">
+              <div className="services-row" > 
+              <div className="services-items" style={{display: "flex",flexDirection:"coloumn"}}>
+                <div className="col-lg-6 mb-4" >
                   {services.map((service) => (
-                    <div className="services-item">
-                      {/* <div className="icon">
-                     
-                    </div> */}
+                    <div className="services-item" style={{border:"3px solid #ff8059",borderRadius:"10px",padding:"20px", marginBottom:"10px"}}>
+                      <div className="icon"style={{display:"flex", flexDirection:"column"}} width={60}>
                       <img src={service.image.url} />
+                      </div>
+                    
+
+                     
                       <div className="title">{service.name}</div>
-                      <div className="text">
+                      <div className="text"style={{display:"flex", flexDirection:"column"}}>
                         <p>{service.desc}</p>
                         <strong>Price:{service.charge}</strong>
                       </div>
@@ -447,6 +456,11 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
+               
+                </div>
+                </div>
+             
+                
                 {/* <div className="services-col">
                   <div
                     className="services-item"
@@ -504,8 +518,9 @@ const Index = () => {
                     </a>
                   </div>
                 </div> */}
-              </div>
+              
               {/* History */}
+              <div  >
               <div className="history-left">
                 <div className="p-title">EDUCATION</div>
                 {timeline.sort((a, b) => a.sequence - b.sequence) &&
@@ -562,7 +577,7 @@ const Index = () => {
                   <div className="p-title">EXPERIENCE</div>
                   {experience.sort((a, b) => a.sequence - b.sequence) &&
                     experience.map((exp) => (
-                      <div className="history-item">
+                      <div className="history-item" >
                         <div className="date">
                           {new Date(exp.startDate).toLocaleDateString()}-
                           {new Date(exp.endDate).toLocaleDateString()}
@@ -603,6 +618,7 @@ const Index = () => {
                   </div> */}
                 </div>
               </div>
+              </div>
               <div className="clear" />
               {/* Button CV */}
               <a
@@ -642,7 +658,7 @@ const Index = () => {
           <ProjectIsotop />
         </div>
       </section>
-      <section className="section" id="pricing-section">
+      {data.pricing_plans? <section className="section" id="pricing-section">
         <div className="container">
           {/* Section Heading */}
           <div className="m-titles">
@@ -716,14 +732,15 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section>:""}
+     
       <section className="section no-padding-top section-parallax section-parallax-4">
-        <div className="container">
+        <div className="container" style={{paddingTop:"100px"}}>
           {/* Testimonials */}
           <TestimonialSlider />
         </div>
       </section>
-      <section className="section section-bg" id="blog-section">
+      {data.blog?<section className="section section-bg" id="blog-section">
         <div className="container">
           {/* Section Heading */}
           <div className="m-titles">
@@ -860,49 +877,51 @@ const Index = () => {
             </a>
           </Link>
         </div>
-      </section>
+      </section>:""}
+      {data.clients_served?
       <section className="section section-parallax section-parallax-5">
-        <div className="container">
-          {/* Section Heading */}
-          <div className="m-titles">
-            <h2 className="m-title">My Clients</h2>
-          </div>
-          <div className="row row-custom">
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
-            <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
-              {/* Description */}
-              <div className="text">
-                <p>
-                  Suspendisse potenti. Sed egestas eros eu libero posuere
-                  ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row clients-items">
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-              <div className="clients-item">
-                <img src="assets/images/brand1.png" alt="" />
-              </div>
-            </div>
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-              <div className="clients-item">
-                <img src="assets/images/brand2.png" alt="" />
-              </div>
-            </div>
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-              <div className="clients-item">
-                <img src="assets/images/brand3.png" alt="" />
-              </div>
-            </div>
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-              <div className="clients-item">
-                <img src="assets/images/brand4.png" alt="" />
-              </div>
+      <div className="container">
+        {/* Section Heading */}
+        <div className="m-titles">
+          <h2 className="m-title">My Clients</h2>
+        </div>
+        <div className="row row-custom">
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+          <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
+            {/* Description */}
+            <div className="text">
+              <p>
+                Suspendisse potenti. Sed egestas eros eu libero posuere
+                ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
+              </p>
             </div>
           </div>
         </div>
-      </section>
+        <div className="row clients-items">
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+            <div className="clients-item">
+              <img src="assets/images/brand1.png" alt="" />
+            </div>
+          </div>
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+            <div className="clients-item">
+              <img src="assets/images/brand2.png" alt="" />
+            </div>
+          </div>
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+            <div className="clients-item">
+              <img src="assets/images/brand3.png" alt="" />
+            </div>
+          </div>
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+            <div className="clients-item">
+              <img src="assets/images/brand4.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>:""}
+      
       <ContactForm />
     </Layout>
   );

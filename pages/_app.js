@@ -1,12 +1,12 @@
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import "../styles/globals.css";
-
 function MyApp({ Component, pageProps }) {
+  
   return (
     <Fragment>
       <Head>
-        <title>OBER - One Page Resume React NextJS Template</title>
+        <title>- One Page Resume React NextJS Template</title>
         {/* <!-- Fonts --> */}
         <link
           rel="stylesheet"
@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
         />
 
         {/* <!-- CSS STYLES --> */}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></link>
         <link
           rel="stylesheet"
           href="assets/css/vendors/bootstrap.css"

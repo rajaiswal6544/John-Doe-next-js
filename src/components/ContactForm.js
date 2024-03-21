@@ -1,6 +1,20 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const ContactForm = () => {
+  const[data,setData]=useState({});
+  const url =
+    "https://portfolio-backend-30mp.onrender.com/api/v1/get/user/65b3a22c01d900e96c4219ae";
+    async function fetchInfo  () {
+      return await fetch(url)
+        .then((res) => res.json())
+        .then((d) => setData(d.user.about));
+    };
+  
+    useEffect(() => {
+      fetchInfo();
+    },[])
+
+
   const [contactData, setContactData] = useState({
     name: "",
     email: "",
@@ -51,7 +65,7 @@ const ContactForm = () => {
                 <div className="icon">
                   <i aria-hidden="true" className="fas fa-phone" />
                 </div>
-                <div className="num">+1 023-456-7800</div>
+                <div className="num">{data.phoneNumber}</div>
               </div>
               <div
                 className="numbers-item"
@@ -59,7 +73,7 @@ const ContactForm = () => {
                 <div className="icon">
                   <i aria-hidden="true" className="fas fa-at" />
                 </div>
-                <div className="num">hi@ober.com</div>
+                <div className="num">hi@{data.name}.com</div>
               </div>
               <div
                 className="numbers-item"
@@ -67,7 +81,7 @@ const ContactForm = () => {
                 <div className="icon">
                   <i aria-hidden="true" className="fas fa-location-arrow" />
                 </div>
-                <div className="num">43rd Street River Point NY 1023</div>
+                <div className="num">{data.address}</div>
               </div>
             </div>
           </div>

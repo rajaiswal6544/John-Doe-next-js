@@ -1,6 +1,8 @@
 import Isotope from "isotope-layout";
 import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { testimonialsSlider } from "../sliderProps";
 const ProjectIsotop = () => {
   //Api fetch
   const url =
@@ -49,10 +51,14 @@ const ProjectIsotop = () => {
   };
   const activeBtn = (value) => (value === filterKey ? "active" : "");
   return (
-    <Fragment>
-      {data.sort((a, b) => a.sequence - b.sequence) &&
+    < Swiper
+        {...testimonialsSlider}
+        className="swiper-container js-testimonials"
+      >
+       {data.sort((a, b) => a.sequence - b.sequence) &&
         data.map((project) => (
           <div className="works-box">
+           
             {/* Not required might delete */}
 
             {/* <div
@@ -95,47 +101,52 @@ const ProjectIsotop = () => {
           </a> */}
             {/* </div> */}
             {/* projects */}
+            
             <div className="works-items works-list-items row">
               <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
+              <SwiperSlide className="swiper-slide">
                 <div className="works-item">
-                  <Link href="/work-single">
+                  <Link href={`/work-single/`}>
                     <a>
-                      <span className="image">
-                        <span className="img">
+                      <span className="image" style={{display:"flex",flexDirection:"coloumn"}}>
+                        <span className="img" style={{display:"flex",flexDirection:"coloumn"}}>
                           <img
                             src={project.image.url}
                             alt={project}
-                            width={400}
+                            style={{display:"flex",flexDirection:"coloumn"}}
+                            width={"40%"}
                             height={500}
                           />
                           <span className="overlay" />
                         </span>
                       </span>
                       <span className="desc">
-                        <span className="name">{project.title}</span>
+                        <span style={{color:"black",fontFamily:"Sorts Mill Goudy",fontSize:"50px"}}>{project.title}</span>
                         <span className="category">
-                          <a href={project.liveurl}>
-                            <img src="/assets/images/network.png" width={30} />
-                            Link
-                          </a>
-                          <br />
-                          <a href={project.githuburl}>
-                            <img
+                          {/* <a href={project.liveurl}>
+                            <img src="/assets/images/network.png" width={40}style={{marginLeft:"500px",marginTop:"0px"}} />
+                           
+                          </a> */}
+                          
+                          {/* <a href={project.githuburl}>
+                            {/* <img
                               src="/assets/images/github-sign.png"
-                              width={30}
-                            />
-                            Github
-                          </a>
+                              width={40}
+                            style={{marginLeft:"8px",marginBottom:"0"}}/> */}
+                           
+                          {/* </a> */}
                           <br />
-                          {project.description}
+                          {/* {project.description}
                           TechStack:
-                          {project.techStack}
+                          {project.techStack} */}
                         </span>
                       </span>
                     </a>
                   </Link>
                 </div>
+                </SwiperSlide>
               </div>
+              
               {/* <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-ui-ux-design ">
             <div className="works-item">
               <Link href="/work-single">
@@ -166,130 +177,135 @@ const ProjectIsotop = () => {
               </Link>
             </div>
           </div>
-          <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-development sorting-ui-ux-design ">
-            <div className="works-item">
-              <Link href="/work-single">
-                <a>
-                  <span
-                    className="image"
-                  >
-                    <span className="img">
-                      <img src="assets/images/work7.jpg" alt="Explore" />
-                      <span className="overlay" />
-                    </span>
-                  </span>
-                  <span className="desc">
-                    <span
-                      className="name"
-                    >
-                      Explore
-                    </span>
-                    <span
-                      className="category"
-                    >
-                      Development
-                      <br />
-                      UI UX Design
-                    </span>
-                  </span>
-                </a>
-              </Link>
+          // <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-development sorting-ui-ux-design ">
+          //   <div className="works-item">
+          //     <Link href="/work-single">
+          //       <a>
+          //         <span
+          //           className="image"
+          //         >
+          //           <span className="img">
+          //             <img src="assets/images/work7.jpg" alt="Explore" />
+          //             <span className="overlay" />
+          //           </span>
+          //         </span>
+          //         <span className="desc">
+          //           <span
+          //             className="name"
+          //           >
+          //             Explore
+          //           </span>
+          //           <span
+          //             className="category"
+          //           >
+          //             Development
+          //             <br />
+          //             UI UX Design
+          //           </span>
+          //         </span>
+          //       </a>
+          //     </Link>
+          //   </div>
+          // </div>
+          // <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
+          //   <div className="works-item">
+          //     <Link href="/work-single">
+          //       <a>
+          //         <span
+          //           className="image"
+          //         >
+          //           <span className="img">
+          //             <img src="assets/images/work1.jpg" alt="Mozar" />
+          //             <span className="overlay" />
+          //           </span>
+          //         </span>
+          //         <span className="desc">
+          //           <span
+          //             className="name"
+          //           >
+          //             Mozar
+          //           </span>
+          //           <span
+          //             className="category"
+          //           >
+          //             Branding
+          //             <br />
+          //             Photography
+          //           </span>
+          //         </span>
+          //       </a>
+          //     </Link>
+          //   </div>
+          // </div>
+          // <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
+          //   <div className="works-item">
+          //     <Link href="/work-single">
+          //       <a>
+          //         <span
+          //           className="image"
+          //         >
+          //           <span className="img">
+          //             <img src="assets/images/single8.jpg" alt="Stay Fit" />
+          //             <span className="overlay" />
+          //           </span>
+          //         </span>
+          //         <span className="desc">
+          //           <span
+          //             className="name"
+          //           >
+          //             Stay Fit
+          //           </span>
+          //           <span
+          //             className="category"
+          //           >
+          //             Development
+          //             <br />
+          //             UI UX Design
+          //           </span>
+          //         </span>
+          //       </a>
+          //     </Link>
+          //   </div>
+          // </div>
+          // <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
+          //   <div className="works-item">
+          //     <Link href="/work-single">
+          //       <a>
+          //         <span
+          //           className="image"
+          //         >
+          //           <span className="img">
+          //             <img src="assets/images/single6.jpg" alt="Kana" />
+          //             <span className="overlay" />
+          //           </span>
+          //         </span>
+          //         <span className="desc">
+          //           <span
+          //             className="name"
+          //           >
+          //             Kana
+          //           </span>
+          //           <span
+          //             className="category"
+          //           >
+          //             Development
+          //             <br />
+          //             Photography
+          //           </span>
+          //         </span>
+          //       </a>
+          //     </Link>
+          //   </div>
+          // </div> */}
             </div>
+            
           </div>
-          <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
-            <div className="works-item">
-              <Link href="/work-single">
-                <a>
-                  <span
-                    className="image"
-                  >
-                    <span className="img">
-                      <img src="assets/images/work1.jpg" alt="Mozar" />
-                      <span className="overlay" />
-                    </span>
-                  </span>
-                  <span className="desc">
-                    <span
-                      className="name"
-                    >
-                      Mozar
-                    </span>
-                    <span
-                      className="category"
-                    >
-                      Branding
-                      <br />
-                      Photography
-                    </span>
-                  </span>
-                </a>
-              </Link>
-            </div>
-          </div>
-          <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
-            <div className="works-item">
-              <Link href="/work-single">
-                <a>
-                  <span
-                    className="image"
-                  >
-                    <span className="img">
-                      <img src="assets/images/single8.jpg" alt="Stay Fit" />
-                      <span className="overlay" />
-                    </span>
-                  </span>
-                  <span className="desc">
-                    <span
-                      className="name"
-                    >
-                      Stay Fit
-                    </span>
-                    <span
-                      className="category"
-                    >
-                      Development
-                      <br />
-                      UI UX Design
-                    </span>
-                  </span>
-                </a>
-              </Link>
-            </div>
-          </div>
-          <div className="works-col col-xs-12 col-sm-12 col-md-12 col-lg-12 sorting-branding sorting-photo ">
-            <div className="works-item">
-              <Link href="/work-single">
-                <a>
-                  <span
-                    className="image"
-                  >
-                    <span className="img">
-                      <img src="assets/images/single6.jpg" alt="Kana" />
-                      <span className="overlay" />
-                    </span>
-                  </span>
-                  <span className="desc">
-                    <span
-                      className="name"
-                    >
-                      Kana
-                    </span>
-                    <span
-                      className="category"
-                    >
-                      Development
-                      <br />
-                      Photography
-                    </span>
-                  </span>
-                </a>
-              </Link>
-            </div>
-          </div> */}
-            </div>
-          </div>
+          
         ))}
-    </Fragment>
+   
+      </Swiper>
+     
+    
   );
 };
 export default ProjectIsotop;
