@@ -31,12 +31,13 @@ const WorkSingle = () => {
   const [videoToggle, setVideoToggle] = useState(false);
   return (
     <Layout extraWrapClass={"project-single"}>
-      <div className="h-titles" style={{ paddingTop: "10rem" }}>
-        <h1 className="h-title">Project details:</h1>
+      <div className="h-titles" style={{ paddingTop: "3rem",paddingBottom:"5rem",paddingLeft:"4rem" }}>
+        <h1 className="h-title" style={{fontSize:"7rem"}}>Project details:<img src="/assets/images/clipboard.png" width={200}/></h1>
+        
       </div>
       {/* Section Started Heading */},
-      <section className="section section-inner started-heading">
-        <div className="container" >
+      <section className="">
+        <div className="container">
           {data.sort((a, b) => a.sequence - b.sequence) &&
             data.map((item, index) => (
               <div className="row" style={{ paddingBottom: "120px" }}>
@@ -49,26 +50,28 @@ const WorkSingle = () => {
                   <div className="image">
                     <img src={item.image.url} width={1000} />
                   </div>
-                  <div className="details-label"style={{paddingTop:"10px"}}>
-                    {item.desc?<p>{item.desc}</p>:""}
-                    <span style={{fontSize:"40px"}}>Technology:</span>
+                  <div className="details-label" style={{ paddingTop: "10px" }}>
+                    {item.desc ? <p>{item.desc}</p> : ""}
+                    <span style={{ fontSize: "40px" }}>Technology:</span>
 
-                    <span style={{fontSize:"40px"}}>{item.techStack}  </span>
-                   <br></br>
+                    <span style={{ fontSize: "40px" }}>{item.techStack} </span>
+                    <br></br>
                     <a href={item.liveurl}>
                       <img
                         src="/assets/images/network.png"
                         width={40}
-                        style={{ marginLeft: "8px"}}
-                      />Link
+                        style={{ marginLeft: "8px" }}
+                      />
+                      Link
                     </a>
-                      <br></br>
+                    <br></br>
                     <a href={item.githuburl}>
                       <img
                         src="/assets/images/github-sign.png"
                         width={40}
                         style={{ marginLeft: "8px", marginBottom: "0" }}
-                      />Github
+                      />
+                      Github
                     </a>
                   </div>
                 </div>
@@ -76,7 +79,6 @@ const WorkSingle = () => {
             ))}
         </div>
       </section>
-      
     </Layout>
   );
 };

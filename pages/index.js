@@ -19,11 +19,11 @@ const Index = () => {
   const [social, setsocial] = useState([]);
   const [timeline, settimeline] = useState([]);
   const [experience, setexperience] = useState([]);
-  async function  fetchInfo(){
+  async function fetchInfo() {
     return await fetch(url)
       .then((res) => res.json())
       .then((d) => setData(d.user.about));
-  };
+  }
 
   useEffect(() => {
     fetchInfo();
@@ -67,7 +67,19 @@ const Index = () => {
     console.log(timeline.length);
   }, [settimeline]);
   const mainDiv = {
-    width: "600px",
+    width: "330%",
+  };
+  
+  const [index, setIndex] = useState(0);
+  const length = 3;
+  const handlePrevious = () => {
+    const newIndex = index - 1;
+   setIndex(newIndex < 0 ? length - 1 : newIndex);
+  };
+  
+  const handleNext = () => {
+    const newIndex = index + 1;
+    setIndex(newIndex >= length ? 0 : newIndex);
   };
 
   return (
@@ -78,9 +90,17 @@ const Index = () => {
 
           <div className="hero-started">
             <div className="slide">
-            {data.avatar?<img src={data.avatar.url} width={400} alt={data.avatar.public_id} />:""}
-              
-               <span className="circle circle-1">
+              {data.avatar ? (
+                <img
+                  src={data.avatar.url}
+                  width={400}
+                  alt={data.avatar.public_id}
+                />
+              ) : (
+                ""
+              )}
+
+              <span className="circle circle-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -149,7 +169,7 @@ const Index = () => {
                     d="M232.000,0.000 C232.000,64.151 180.376,116.580 116.238,116.580 C52.100,116.580 0.000,64.151 0.000,0.000 "
                   />
                 </svg>
-              </span> 
+              </span>
             </div>
 
             <div className="content">
@@ -215,17 +235,22 @@ const Index = () => {
           {/* Section Heading */}
           <div className="m-titles">
             <h2 className="m-title">About Me</h2>
-            
           </div>
           <div className="row row-custom">
             <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-right">
               {/* Section numbers */}
               <div className="numbers-items">
-              {data.avatar?<img src={data.avatar.url}  width={120} style={{borderRadius:"15rem"}}/>:''}
+                {data.avatar ? (
+                  <img
+                    src={data.avatar.url}
+                    width={120}
+                    style={{ borderRadius: "15rem" }}
+                  />
+                ) : (
+                  ""
+                )}
                 <div className="numbers-item">
-               
                   <div className="icon">
-                  
                     <i aria-hidden="true" className="far fa-check-circle" />
                   </div>
                   <div className="num">{data.some_total}</div>
@@ -301,11 +326,18 @@ const Index = () => {
                 <p>{data.description}</p>
               </div>
               {/* Skills */}
-              <div className="skills-items" >
+              <div className="skills-items">
                 <div className="p-title">SKILLS</div>
                 {skills.sort((a, b) => a.sequence - b.sequence) &&
                   skills.map((skill) => (
-                    <div className="skills-item"style={{border:"2px solid #ff8059",borderRadius:"40px",padding:"20px"}}>
+                    <div
+                      className="skills-item"
+                      style={{
+                        border: "2px solid #ff8059",
+                        borderRadius: "40px",
+                        padding: "20px",
+                      }}
+                    >
                       {/* ProgressBar */}
                       <div className="name">
                         <div style={mainDiv}>
@@ -432,36 +464,53 @@ const Index = () => {
                 </div> */}
               </div>
               {/* Services */}
-              
-              <div className="p-title">SERVICES</div>
-              <div className="services-row" > 
-              <div className="services-items" style={{display: "flex",flexDirection:"coloumn"}}>
-                <div className="col-lg-6 mb-4" >
-                  {services.map((service) => (
-                    <div className="services-item" style={{border:"3px solid #ff8059",borderRadius:"10px",padding:"20px", marginBottom:"10px"}}>
-                      <div className="icon"style={{display:"flex", flexDirection:"column"}} width={60}>
-                      <img src={service.image.url} />
-                      </div>
-                    
 
-                     
-                      <div className="title">{service.name}</div>
-                      <div className="text"style={{display:"flex", flexDirection:"column"}}>
-                        <p>{service.desc}</p>
-                        <strong>Price:{service.charge}</strong>
+              <div className="p-title">SERVICES</div>
+              
+              <div className="services-row">
+                <div
+                  className="services-items"
+                  
+                >
+                  <div className="col-lg-6 mb-4">
+                    {services.map((service) => (
+                      <div
+                        className="services-item"
+                        style={{
+                          border: "2px solid #ff8059",
+                          borderRadius: "10px",
+                          padding: "20px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <div
+                          className="icon"
+                         
+                          width={60}
+                         style={{display:"inline-block",marginLeft:"5%"}}>
+                          <img src={service.image.url} />
+                        </div>
+
+                        <div className="title">{service.name}</div>
+                        <div
+                          className="text"
+                          
+                        >
+                          <p>{service.desc}</p>
+                          <strong>Price:{service.charge}</strong>
+                        </div>
+                        <a href="#contact-section" className="lnk">
+                          order now
+                        </a>
                       </div>
-                      <a href="#contact-section" className="lnk">
-                        order now
-                      </a>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-               
-                </div>
-                </div>
-             
-                
-                {/* <div className="services-col">
+              </div>
+              
+              
+
+              {/* <div className="services-col">
                   <div
                     className="services-item"
                   >
@@ -518,83 +567,83 @@ const Index = () => {
                     </a>
                   </div>
                 </div> */}
-              
-              {/* History */}
-              <div  >
-              <div className="history-left">
-                <div className="p-title">EDUCATION</div>
-                {timeline.sort((a, b) => a.sequence - b.sequence) &&
-                  timeline.map((educ) => (
-                    <div className="history-items">
-                      <div className="history-item">
-                        <div className="date">
-                          {new Date(educ.startDate).toLocaleDateString()}-
-                          {new Date(educ.endDate).toLocaleDateString()}
-                        </div>
 
-                        <div className="name">{educ.company_name}</div>
-                        <div className="subname">{educ.jobTitle}</div>
-                        {educ.summary ? (
-                          <p>{educ.summary}</p>
-                        ) : (
-                          <p>{educ.bulletPoints}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                {/* Checked if awards is avialable in timeline section */}
-                {timeline.awards ? (
-                  <div className="history-items">
-                    <div className="p-title">AWARDS</div>
-                    <div className="history-item">
-                      <div className="date">2016 - awwwards</div>
-                      <div className="name">Site of the Day</div>
-                      <div className="text">
-                        <p>
-                          Euismod vel bibendum ultrices, fringilla vel eros,
-                          donec euismod leo lectus.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="history-item">
-                      <div className="date">2015 - designnominees</div>
-                      <div className="name">Site of the Week</div>
-                      <div className="text">
-                        <p>
-                          Euismod vel bibendum ultrices, fringilla vel eros,
-                          donec euismod leo lectus.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-              {/* Experience */}
-              <div className="history-right">
-                <div className="history-items">
-                  <div className="p-title">EXPERIENCE</div>
-                  {experience.sort((a, b) => a.sequence - b.sequence) &&
-                    experience.map((exp) => (
-                      <div className="history-item" >
-                        <div className="date">
-                          {new Date(exp.startDate).toLocaleDateString()}-
-                          {new Date(exp.endDate).toLocaleDateString()}
-                        </div>
-                        <div className="name">{exp.company_name}</div>
-                        <div className="subname">{exp.jobTitle}</div>
-                        <div className="text">
-                          {exp.summary ? (
-                            <p>{exp.summary}</p>
+              {/* History */}
+              <div>
+                <div className="history-left">
+                  <div className="p-title"><u>EDUCATION</u></div>
+                  {timeline.sort((a, b) => a.sequence - b.sequence) &&
+                    timeline.map((educ) => (
+                      <div className="history-items">
+                        <div className="history-item">
+                          <div className="date"><u>{new Date(educ.startDate).toLocaleDateString()}-
+                            {new Date(educ.endDate).toLocaleDateString()}</u>
+                            
+                          </div>
+
+                          <div className="name">{educ.company_name}</div>
+                          <div className="subname">{educ.jobTitle}</div>
+                          {educ.summary ? (
+                            <p>{educ.summary}</p>
                           ) : (
-                            <p>{exp.bulletPoints}</p>
+                            <p>{educ.bulletPoints}</p>
                           )}
                         </div>
                       </div>
                     ))}
-                  {/* Data not needed might delete */}
-                  {/* <div className="history-item">
+                  {/* Checked if awards is avialable in timeline section */}
+                  {timeline.awards ? (
+                    <div className="history-items">
+                      <div className="p-title">AWARDS</div>
+                      <div className="history-item">
+                        <div className="date">2016 - awwwards</div>
+                        <div className="name">Site of the Day</div>
+                        <div className="text">
+                          <p>
+                            Euismod vel bibendum ultrices, fringilla vel eros,
+                            donec euismod leo lectus.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="history-item">
+                        <div className="date">2015 - designnominees</div>
+                        <div className="name">Site of the Week</div>
+                        <div className="text">
+                          <p>
+                            Euismod vel bibendum ultrices, fringilla vel eros,
+                            donec euismod leo lectus.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {/* Experience */}
+                <div className="history-right">
+                  <div className="history-items">
+                    <div className="p-title"><u>EXPERIENCE</u></div>
+                    {experience.sort((a, b) => a.sequence - b.sequence) &&
+                      experience.map((exp) => (
+                        <div className="history-item">
+                          <div className="date"><u> {new Date(exp.startDate).toLocaleDateString()}-
+                            {new Date(exp.endDate).toLocaleDateString()}</u>
+                           
+                          </div>
+                          <div className="name">{exp.company_name}</div>
+                          <div className="subname">{exp.jobTitle}</div>
+                          <div className="text">
+                            {exp.summary ? (
+                              <p>{exp.summary}</p>
+                            ) : (
+                              <p>{exp.bulletPoints}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    {/* Data not needed might delete */}
+                    {/* <div className="history-item">
                     <div className="date">2010 - 2014</div>
                     <div className="name">Kana Design Studio</div>
                     <div className="subname">UI / UX Specialist</div>
@@ -616,8 +665,8 @@ const Index = () => {
                       </p>
                     </div>
                   </div> */}
+                  </div>
                 </div>
-              </div>
               </div>
               <div className="clear" />
               {/* Button CV */}
@@ -658,272 +707,284 @@ const Index = () => {
           <ProjectIsotop />
         </div>
       </section>
-      {data.pricing_plans? <section className="section" id="pricing-section">
-        <div className="container">
-          {/* Section Heading */}
-          <div className="m-titles">
-            <h2 className="m-title">Pricing Plans</h2>
-          </div>
-          <div className="row row-custom">
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
-            <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
-              {/* Description */}
-              <div className="text">
-                <p>
-                  Are you interested to work with me ? Here are my price list
-                  for design related work. Lets talk about project !
-                </p>
-              </div>
+      {data.pricing_plans ? (
+        <section className="section" id="pricing-section">
+          <div className="container">
+            {/* Section Heading */}
+            <div className="m-titles">
+              <h2 className="m-title">Pricing Plans</h2>
             </div>
-          </div>
-          {/* Pricing */}
-          <div className="pricing-items row">
-            <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              <div className="pricing-item">
-                <div className="title">Full Time</div>
-                <div className="subtitle">Available for Full Time</div>
-                <div className="price">$1200</div>
+            <div className="row row-custom">
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+              <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
+                {/* Description */}
                 <div className="text">
-                  <ul>
-                    <li>Brand Design</li>
-                    <li>Advertising</li>
-                    <li>Web Development</li>
-                    <li>Photography</li>
-                  </ul>
+                  <p>
+                    Are you interested to work with me ? Here are my price list
+                    for design related work. Lets talk about project !
+                  </p>
                 </div>
-                <a href="#contact-section" className="btn">
-                  <span>Hire Me</span>
-                </a>
               </div>
             </div>
-            <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              <div className="pricing-item">
-                <div className="title">Project Wise</div>
-                <div className="subtitle">Available for Freelancing</div>
-                <div className="price">$400</div>
-                <div className="text">
-                  <ul>
-                    <li>Brand Design</li>
-                    <li>Advertising</li>
-                    <li>Web Development</li>
-                    <li>Photography</li>
-                  </ul>
+            {/* Pricing */}
+            <div className="pricing-items row">
+              <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="pricing-item">
+                  <div className="title">Full Time</div>
+                  <div className="subtitle">Available for Full Time</div>
+                  <div className="price">$1200</div>
+                  <div className="text">
+                    <ul>
+                      <li>Brand Design</li>
+                      <li>Advertising</li>
+                      <li>Web Development</li>
+                      <li>Photography</li>
+                    </ul>
+                  </div>
+                  <a href="#contact-section" className="btn">
+                    <span>Hire Me</span>
+                  </a>
                 </div>
-                <a href="#contact-section" className="btn">
-                  <span>Hire Me</span>
-                </a>
               </div>
-            </div>
-            <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
-              <div className="pricing-item">
-                <div className="title">Hourley</div>
-                <div className="subtitle">Available for Hourley Basis</div>
-                <div className="price">$60</div>
-                <div className="text">
-                  <ul>
-                    <li>Brand Design</li> <li>Advertising</li>
-                    <li>Web Development</li> <li>Photography</li>
-                  </ul>
+              <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="pricing-item">
+                  <div className="title">Project Wise</div>
+                  <div className="subtitle">Available for Freelancing</div>
+                  <div className="price">$400</div>
+                  <div className="text">
+                    <ul>
+                      <li>Brand Design</li>
+                      <li>Advertising</li>
+                      <li>Web Development</li>
+                      <li>Photography</li>
+                    </ul>
+                  </div>
+                  <a href="#contact-section" className="btn">
+                    <span>Hire Me</span>
+                  </a>
                 </div>
-                <a href="#contact-section" className="btn">
-                  <span>Hire Me</span>
-                </a>
+              </div>
+              <div className="pricing-col col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="pricing-item">
+                  <div className="title">Hourley</div>
+                  <div className="subtitle">Available for Hourley Basis</div>
+                  <div className="price">$60</div>
+                  <div className="text">
+                    <ul>
+                      <li>Brand Design</li> <li>Advertising</li>
+                      <li>Web Development</li> <li>Photography</li>
+                    </ul>
+                  </div>
+                  <a href="#contact-section" className="btn">
+                    <span>Hire Me</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>:""}
-     
+        </section>
+      ) : (
+        ""
+      )}
+
       <section className="section no-padding-top section-parallax section-parallax-4">
-        <div className="container" style={{paddingTop:"100px"}}>
+        <div className="container" style={{ paddingTop: "100px" }}>
           {/* Testimonials */}
           <TestimonialSlider />
         </div>
       </section>
-      {data.blog?<section className="section section-bg" id="blog-section">
-        <div className="container">
-          {/* Section Heading */}
-          <div className="m-titles">
-            <h2 className="m-title">My Blog</h2>
-          </div>
-          <div className="row row-custom">
-            <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
-            <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
-              {/* Description */}
-              <div className="text">
-                <p>
-                  Suspendisse potenti. Sed egestas eros eu libero posuere
-                  ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
-                </p>
-              </div>
+      {data.blog ? (
+        <section className="section section-bg" id="blog-section">
+          <div className="container">
+            {/* Section Heading */}
+            <div className="m-titles">
+              <h2 className="m-title">My Blog</h2>
             </div>
-          </div>
-        </div>
-        {/* Blog */}
-        <div className="blog-items">
-          <div className="archive-item">
-            <div className="image">
-              <Link href="/blog-single">
-                <a>
-                  <img
-                    src="assets/images/blog4.jpg"
-                    alt="Usability Secrets to Create Better User Interfaces"
-                  />
-                </a>
-              </Link>
-            </div>
-            <div className="desc">
-              <div className="category">
-                UI Design
-                <br />
-                <span>November 28, 2021</span>
-              </div>
-              <h3 className="title">
-                <Link href="/blog-single">
-                  <a>Usability Secrets to Create Better User Interfaces</a>
-                </Link>
-              </h3>
-              <div className="text">
-                <p>
-                  Vivamus interdum suscipit lacus. Nunc ultrices accumsan
-                  mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
-                  arcu lacus, ornare eget…{" "}
-                </p>
-                <div className="readmore">
-                  <Link href="/blog-single">
-                    <a className="lnk">Read more</a>
-                  </Link>
+            <div className="row row-custom">
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+              <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
+                {/* Description */}
+                <div className="text">
+                  <p>
+                    Suspendisse potenti. Sed egestas eros eu libero posuere
+                    ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="archive-item">
-            <div className="image">
-              <Link href="/blog-single">
-                <a>
-                  <img
-                    src="assets/images/blog3.jpg"
-                    alt="Three Ways To Level Up Your Photography"
-                  />
-                </a>
-              </Link>
-            </div>
-            <div className="desc">
-              <div className="category">
-                Branding
-                <br />
-                <span>November 28, 2021</span>
-              </div>
-              <h3 className="title">
+          {/* Blog */}
+          <div className="blog-items">
+            <div className="archive-item">
+              <div className="image">
                 <Link href="/blog-single">
-                  <a>Three Ways To Level Up Your Photography</a>
+                  <a>
+                    <img
+                      src="assets/images/blog4.jpg"
+                      alt="Usability Secrets to Create Better User Interfaces"
+                    />
+                  </a>
                 </Link>
-              </h3>
-              <div className="text">
-                <p>
-                  Vivamus interdum suscipit lacus. Nunc ultrices accumsan
-                  mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
-                  arcu lacus, ornare eget…{" "}
-                </p>
-                <div className="readmore">
+              </div>
+              <div className="desc">
+                <div className="category">
+                  UI Design
+                  <br />
+                  <span>November 28, 2021</span>
+                </div>
+                <h3 className="title">
                   <Link href="/blog-single">
-                    <a className="lnk">Read more</a>
+                    <a>Usability Secrets to Create Better User Interfaces</a>
                   </Link>
+                </h3>
+                <div className="text">
+                  <p>
+                    Vivamus interdum suscipit lacus. Nunc ultrices accumsan
+                    mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
+                    arcu lacus, ornare eget…{" "}
+                  </p>
+                  <div className="readmore">
+                    <Link href="/blog-single">
+                      <a className="lnk">Read more</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="archive-item">
+              <div className="image">
+                <Link href="/blog-single">
+                  <a>
+                    <img
+                      src="assets/images/blog3.jpg"
+                      alt="Three Ways To Level Up Your Photography"
+                    />
+                  </a>
+                </Link>
+              </div>
+              <div className="desc">
+                <div className="category">
+                  Branding
+                  <br />
+                  <span>November 28, 2021</span>
+                </div>
+                <h3 className="title">
+                  <Link href="/blog-single">
+                    <a>Three Ways To Level Up Your Photography</a>
+                  </Link>
+                </h3>
+                <div className="text">
+                  <p>
+                    Vivamus interdum suscipit lacus. Nunc ultrices accumsan
+                    mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
+                    arcu lacus, ornare eget…{" "}
+                  </p>
+                  <div className="readmore">
+                    <Link href="/blog-single">
+                      <a className="lnk">Read more</a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="archive-item">
+              <div className="image">
+                <Link href="/blog-single">
+                  <a>
+                    <img
+                      src="assets/images/single7.jpg"
+                      alt="10 Useful Tips to Improve Your UI Designs"
+                    />
+                  </a>
+                </Link>
+              </div>
+              <div className="desc">
+                <div className="category">
+                  Photography
+                  <br />
+                  <span>November 28, 2021</span>
+                </div>
+                <h3 className="title">
+                  <Link href="/blog-single">
+                    <a>10 Useful Tips to Improve Your UI Designs</a>
+                  </Link>
+                </h3>
+                <div className="text">
+                  <p>
+                    Vivamus interdum suscipit lacus. Nunc ultrices accumsan
+                    mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
+                    arcu lacus, ornare eget…
+                  </p>
+                  <div className="readmore">
+                    <Link href="/blog-single">
+                      <a className="lnk">Read more</a>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="archive-item">
-            <div className="image">
-              <Link href="/blog-single">
-                <a>
-                  <img
-                    src="assets/images/single7.jpg"
-                    alt="10 Useful Tips to Improve Your UI Designs"
-                  />
-                </a>
-              </Link>
+          <div className="blog-more-link">
+            <Link href="/blog">
+              <a className="btn">
+                <span>View Blog</span>
+              </a>
+            </Link>
+          </div>
+        </section>
+      ) : (
+        ""
+      )}
+      {data.clients_served ? (
+        <section className="section section-parallax section-parallax-5">
+          <div className="container">
+            {/* Section Heading */}
+            <div className="m-titles">
+              <h2 className="m-title">My Clients</h2>
             </div>
-            <div className="desc">
-              <div className="category">
-                Photography
-                <br />
-                <span>November 28, 2021</span>
+            <div className="row row-custom">
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+              <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
+                {/* Description */}
+                <div className="text">
+                  <p>
+                    Suspendisse potenti. Sed egestas eros eu libero posuere
+                    ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
+                  </p>
+                </div>
               </div>
-              <h3 className="title">
-                <Link href="/blog-single">
-                  <a>10 Useful Tips to Improve Your UI Designs</a>
-                </Link>
-              </h3>
-              <div className="text">
-                <p>
-                  Vivamus interdum suscipit lacus. Nunc ultrices accumsan
-                  mattis. Aliquam vel sem vel velit efficitur malesuada. Donec
-                  arcu lacus, ornare eget…
-                </p>
-                <div className="readmore">
-                  <Link href="/blog-single">
-                    <a className="lnk">Read more</a>
-                  </Link>
+            </div>
+            <div className="row clients-items">
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+                <div className="clients-item">
+                  <img src="assets/images/brand1.png" alt="" />
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+                <div className="clients-item">
+                  <img src="assets/images/brand2.png" alt="" />
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+                <div className="clients-item">
+                  <img src="assets/images/brand3.png" alt="" />
+                </div>
+              </div>
+              <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
+                <div className="clients-item">
+                  <img src="assets/images/brand4.png" alt="" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="blog-more-link">
-          <Link href="/blog">
-            <a className="btn">
-              <span>View Blog</span>
-            </a>
-          </Link>
-        </div>
-      </section>:""}
-      {data.clients_served?
-      <section className="section section-parallax section-parallax-5">
-      <div className="container">
-        {/* Section Heading */}
-        <div className="m-titles">
-          <h2 className="m-title">My Clients</h2>
-        </div>
-        <div className="row row-custom">
-          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
-          <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
-            {/* Description */}
-            <div className="text">
-              <p>
-                Suspendisse potenti. Sed egestas eros eu libero posuere
-                ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="row clients-items">
-          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-            <div className="clients-item">
-              <img src="assets/images/brand1.png" alt="" />
-            </div>
-          </div>
-          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-            <div className="clients-item">
-              <img src="assets/images/brand2.png" alt="" />
-            </div>
-          </div>
-          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-            <div className="clients-item">
-              <img src="assets/images/brand3.png" alt="" />
-            </div>
-          </div>
-          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 align-center">
-            <div className="clients-item">
-              <img src="assets/images/brand4.png" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>:""}
-      
+        </section>
+      ) : (
+        ""
+      )}
+
       <ContactForm />
     </Layout>
   );
 };
+
 export default Index;
