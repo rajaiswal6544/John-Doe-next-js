@@ -6,6 +6,8 @@ import Layout from "../src/layout/Layout";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { SwiperSlide } from "swiper/react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import { Flat, Heat, Nested } from "@alptugidin/react-circular-progress-bar";
 
 const ProjectIsotop = dynamic(() => import("../src/components/ProjectIsotop"), {
   ssr: false,
@@ -68,15 +70,16 @@ const Index = () => {
   }, [settimeline]);
   const mainDiv = {
     width: "330%",
+    borderRadius: "50%",
   };
-  
+
   const [index, setIndex] = useState(0);
   const length = 3;
   const handlePrevious = () => {
     const newIndex = index - 1;
-   setIndex(newIndex < 0 ? length - 1 : newIndex);
+    setIndex(newIndex < 0 ? length - 1 : newIndex);
   };
-  
+
   const handleNext = () => {
     const newIndex = index + 1;
     setIndex(newIndex >= length ? 0 : newIndex);
@@ -177,7 +180,7 @@ const Index = () => {
                 <div className="subtitle" style={{ fontSize: "50px" }}>
                   {data.name}
                 </div>
-                <h3 className="title" style={{ fontSize: "100px" }}>
+                <h3 className="title" style={{ fontSize: "500%" }}>
                   {data.title}
                 </h3>
               </div>
@@ -249,6 +252,7 @@ const Index = () => {
                 ) : (
                   ""
                 )}
+
                 <div className="numbers-item">
                   <div className="icon">
                     <i aria-hidden="true" className="far fa-check-circle" />
@@ -295,6 +299,12 @@ const Index = () => {
             <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 vertical-line">
               {/* Section Profile */}
               <div className="profile-box">
+                <strong style={{ fontSize: "250%" }}>{data.name}</strong>
+               
+                <br></br>
+                <p>
+                  <em>{data.quote}</em>
+                </p>
                 <div className="text">
                   <p>{data.description}</p>
                   <a href="#contact-section" className="btn">
@@ -331,26 +341,42 @@ const Index = () => {
                 {skills.sort((a, b) => a.sequence - b.sequence) &&
                   skills.map((skill) => (
                     <div
-                      className="skills-item"
-                      style={{
-                        border: "2px solid #ff8059",
-                        borderRadius: "40px",
-                        padding: "20px",
-                      }}
+                      className="skills-item" style={{display:"flex",flexDirection:"row",overflow:"hidden"}}
+                      // style={{
+                      //   border: "2px solid #ff8059",
+                      //   borderRadius: "50%",
+                      //   padding: "20px",
+                      //   width:"200px",
+                      //   height:"200px"
+                      // }}
                     >
                       {/* ProgressBar */}
-                      <div className="name">
-                        <div style={mainDiv}>
-                          {skill.name}
-                          <img src={skill.image.url} width={50} height={50} />
-                          <ProgressBar
+                      <div className="name" >
+                        <img src={skill.image.url} width={70} height={70} />
+                        {/* <ProgressBar
                             completed={skill.percentage}
                             bgColor="#ff8059"
                             animateOnRender={true}
-                          />
+                            borderRadius="50%"
+                            width="100px"
+                            height="100px"
+                          
+                          /> */}
+                        <Flat
+                          progress={skill.percentage}
+                          text={skill.name}
+                          img={skill.image.url}
+                          sx={{
+                            strokeColor: "#ff8059",
+                            barWidth: 5,
+                            valueSize:17,
+                            strokeLinecap:"butt",
+                            valueColor: "#ff8059",
+                            miniCircleColor: "black",
+                          }}
+                        />
 
-                          <br></br>
-                        </div>
+                        <br></br>
                       </div>
                       {/* Data not needed might delete */}
                       {/* <div className="dots dots-90">
@@ -466,12 +492,9 @@ const Index = () => {
               {/* Services */}
 
               <div className="p-title">SERVICES</div>
-              
+
               <div className="services-row">
-                <div
-                  className="services-items"
-                  
-                >
+                <div className="services-items">
                   <div className="col-lg-6 mb-4">
                     {services.map((service) => (
                       <div
@@ -485,17 +508,14 @@ const Index = () => {
                       >
                         <div
                           className="icon"
-                         
                           width={60}
-                         style={{display:"inline-block",marginLeft:"5%"}}>
+                          style={{ display: "inline-block", marginLeft: "5%" }}
+                        >
                           <img src={service.image.url} />
                         </div>
 
                         <div className="title">{service.name}</div>
-                        <div
-                          className="text"
-                          
-                        >
+                        <div className="text">
                           <p>{service.desc}</p>
                           <strong>Price:{service.charge}</strong>
                         </div>
@@ -507,8 +527,6 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              
-              
 
               {/* <div className="services-col">
                   <div
@@ -571,14 +589,18 @@ const Index = () => {
               {/* History */}
               <div>
                 <div className="history-left">
-                  <div className="p-title"><u>EDUCATION</u></div>
+                  <div className="p-title">
+                    <u>EDUCATION</u>
+                  </div>
                   {timeline.sort((a, b) => a.sequence - b.sequence) &&
                     timeline.map((educ) => (
                       <div className="history-items">
                         <div className="history-item">
-                          <div className="date"><u>{new Date(educ.startDate).toLocaleDateString()}-
-                            {new Date(educ.endDate).toLocaleDateString()}</u>
-                            
+                          <div className="date">
+                            <u>
+                              {new Date(educ.startDate).toLocaleDateString()}-
+                              {new Date(educ.endDate).toLocaleDateString()}
+                            </u>
                           </div>
 
                           <div className="name">{educ.company_name}</div>
@@ -623,13 +645,18 @@ const Index = () => {
                 {/* Experience */}
                 <div className="history-right">
                   <div className="history-items">
-                    <div className="p-title"><u>EXPERIENCE</u></div>
+                    <div className="p-title">
+                      <u>EXPERIENCE</u>
+                    </div>
                     {experience.sort((a, b) => a.sequence - b.sequence) &&
                       experience.map((exp) => (
                         <div className="history-item">
-                          <div className="date"><u> {new Date(exp.startDate).toLocaleDateString()}-
-                            {new Date(exp.endDate).toLocaleDateString()}</u>
-                           
+                          <div className="date">
+                            <u>
+                              {" "}
+                              {new Date(exp.startDate).toLocaleDateString()}-
+                              {new Date(exp.endDate).toLocaleDateString()}
+                            </u>
                           </div>
                           <div className="name">{exp.company_name}</div>
                           <div className="subname">{exp.jobTitle}</div>

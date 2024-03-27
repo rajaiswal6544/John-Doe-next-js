@@ -45,7 +45,7 @@ const WorkSingle = () => {
                   {/* <img src={project.image.url}/> */}
                   {/* titles */}
                   <div className="h-titles">
-                    <h1 className="h-title">{item.title}</h1>
+                    <h1 className="h-title" >{item.title}</h1>
                   </div>
                   <div className="image">
                     <img src={item.image.url} width={1000} />
@@ -55,6 +55,8 @@ const WorkSingle = () => {
                     <span style={{ fontSize: "40px" }}>Technology:</span>
 
                     <span style={{ fontSize: "40px" }}>{item.techStack} </span>
+                    <br></br>
+                    <p>{item.description}</p>
                     <br></br>
                     <a href={item.liveurl}>
                       <img
